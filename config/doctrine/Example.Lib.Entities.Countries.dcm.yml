@@ -1,0 +1,40 @@
+Example\Lib\Entities\Countries:
+    type: entity
+    table: COUNTRIES
+    indexes:
+        IDX_19A4F542E4A9595A:
+            columns:
+                - REGION_ID
+    id:
+        countryId:
+            type: string
+            nullable: false
+            length: 2
+            options:
+                fixed: true
+                comment: 'Primary key of countries table.'
+            id: true
+            column: COUNTRY_ID
+            generator:
+                strategy: SEQUENCE
+    fields:
+        countryName:
+            type: string
+            nullable: true
+            length: 40
+            options:
+                fixed: false
+                comment: 'Country name'
+            column: COUNTRY_NAME
+    manyToOne:
+        region:
+            targetEntity: Example\Lib\Entities\Regions
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                REGION_ID:
+                    referencedColumnName: REGION_ID
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

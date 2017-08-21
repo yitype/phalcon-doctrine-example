@@ -1,0 +1,119 @@
+Example\Lib\Entities\Employees:
+    type: entity
+    table: EMPLOYEES
+    indexes:
+        emp_department_ix:
+            columns:
+                - DEPARTMENT_ID
+        emp_name_ix:
+            columns:
+                - LAST_NAME
+                - FIRST_NAME
+        emp_job_ix:
+            columns:
+                - JOB_ID
+        emp_manager_ix:
+            columns:
+                - MANAGER_ID
+    uniqueConstraints:
+        emp_email_uk:
+            columns:
+                - EMAIL
+    id:
+        employeeId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 'Primary key of employees table.'
+            id: true
+            column: EMPLOYEE_ID
+            generator:
+                strategy: SEQUENCE
+    fields:
+        firstName:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+                comment: 'First name of the employee. A not null column.'
+            column: FIRST_NAME
+        lastName:
+            type: string
+            nullable: false
+            length: 25
+            options:
+                fixed: false
+                comment: 'Last name of the employee. A not null column.'
+            column: LAST_NAME
+        email:
+            type: string
+            nullable: false
+            length: 25
+            options:
+                fixed: false
+                comment: 'Email id of the employee'
+            column: EMAIL
+        phoneNumber:
+            type: string
+            nullable: true
+            length: 20
+            options:
+                fixed: false
+                comment: 'Phone number of the employee; includes country code and area code'
+            column: PHONE_NUMBER
+        hireDate:
+            type: date
+            nullable: false
+            options:
+                comment: 'Date when the employee started on this job. A not null column.'
+            column: HIRE_DATE
+        salary:
+            type: decimal
+            nullable: true
+            precision: 8
+            scale: 2
+            options:
+                comment: "Monthly salary of the employee. Must be greater\nthan zero (enforced by constraint emp_salary_min)"
+            column: SALARY
+        commissionPct:
+            type: decimal
+            nullable: true
+            precision: 2
+            scale: 2
+            options:
+                comment: "Commission percentage of the employee; Only employees in sales\ndepartment elgible for commission percentage"
+            column: COMMISSION_PCT
+    manyToOne:
+        department:
+            targetEntity: Example\Lib\Entities\Departments
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                DEPARTMENT_ID:
+                    referencedColumnName: DEPARTMENT_ID
+            orphanRemoval: false
+        job:
+            targetEntity: Example\Lib\Entities\Jobs
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                JOB_ID:
+                    referencedColumnName: JOB_ID
+            orphanRemoval: false
+        manager:
+            targetEntity: Example\Lib\Entities\Employees
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                MANAGER_ID:
+                    referencedColumnName: EMPLOYEE_ID
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

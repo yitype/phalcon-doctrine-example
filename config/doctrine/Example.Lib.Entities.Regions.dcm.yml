@@ -1,0 +1,24 @@
+Example\Lib\Entities\Regions:
+    type: entity
+    table: REGIONS
+    id:
+        regionId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 'Primary key of regions table.'
+            id: true
+            column: REGION_ID
+            generator:
+                strategy: SEQUENCE
+    fields:
+        regionName:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+                comment: 'Names of regions. Locations are in the countries of these regions.'
+            column: REGION_NAME
+    lifecycleCallbacks: {  }

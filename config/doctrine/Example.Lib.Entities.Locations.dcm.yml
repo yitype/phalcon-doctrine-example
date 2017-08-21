@@ -1,0 +1,69 @@
+Example\Lib\Entities\Locations:
+    type: entity
+    table: LOCATIONS
+    indexes:
+        loc_city_ix:
+            columns:
+                - CITY
+        loc_state_province_ix:
+            columns:
+                - STATE_PROVINCE
+        loc_country_ix:
+            columns:
+                - COUNTRY_ID
+    id:
+        locationId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 'Primary key of locations table'
+            id: true
+            column: LOCATION_ID
+            generator:
+                strategy: SEQUENCE
+    fields:
+        streetAddress:
+            type: string
+            nullable: true
+            length: 40
+            options:
+                fixed: false
+                comment: "Street address of an office, warehouse, or production site of a company.\nContains building number and street name"
+            column: STREET_ADDRESS
+        postalCode:
+            type: string
+            nullable: true
+            length: 12
+            options:
+                fixed: false
+                comment: "Postal code of the location of an office, warehouse, or production site\nof a company. "
+            column: POSTAL_CODE
+        city:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+                comment: "A not null column that shows city where an office, warehouse, or\nproduction site of a company is located. "
+            column: CITY
+        stateProvince:
+            type: string
+            nullable: true
+            length: 25
+            options:
+                fixed: false
+                comment: "State or Province where an office, warehouse, or production site of a\ncompany is located."
+            column: STATE_PROVINCE
+    manyToOne:
+        country:
+            targetEntity: Example\Lib\Entities\Countries
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                COUNTRY_ID:
+                    referencedColumnName: COUNTRY_ID
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

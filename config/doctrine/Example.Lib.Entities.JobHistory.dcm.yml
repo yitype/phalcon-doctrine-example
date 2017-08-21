@@ -1,0 +1,61 @@
+Example\Lib\Entities\JobHistory:
+    type: entity
+    table: JOB_HISTORY
+    indexes:
+        jhist_job_ix:
+            columns:
+                - JOB_ID
+        jhist_employee_ix:
+            columns:
+                - EMPLOYEE_ID
+        jhist_department_ix:
+            columns:
+                - DEPARTMENT_ID
+    id:
+        startDate:
+            type: date
+            nullable: false
+            options:
+                comment: "A not null column in the complex primary key employee_id+start_date.\nMust be less than the end_date of the job_history table. (enforced by\nconstraint jhist_date_interval)"
+            id: true
+            column: START_DATE
+    fields:
+        endDate:
+            type: date
+            nullable: false
+            options:
+                comment: "Last day of the employee in this job role. A not null column. Must be\ngreater than the start_date of the job_history table.\n(enforced by constraint jhist_date_interval)"
+            column: END_DATE
+    manyToOne:
+        department:
+            targetEntity: Example\Lib\Entities\Departments
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                DEPARTMENT_ID:
+                    referencedColumnName: DEPARTMENT_ID
+            orphanRemoval: false
+        job:
+            targetEntity: Example\Lib\Entities\Jobs
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                JOB_ID:
+                    referencedColumnName: JOB_ID
+            orphanRemoval: false
+    oneToOne:
+        employee:
+            targetEntity: Example\Lib\Entities\Employees
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                EMPLOYEE_ID:
+                    referencedColumnName: EMPLOYEE_ID
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

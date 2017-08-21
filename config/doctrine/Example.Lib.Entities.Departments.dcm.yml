@@ -1,0 +1,52 @@
+Example\Lib\Entities\Departments:
+    type: entity
+    table: DEPARTMENTS
+    indexes:
+        dept_location_ix:
+            columns:
+                - LOCATION_ID
+        IDX_9BAD2A3C4BEC6FBC:
+            columns:
+                - MANAGER_ID
+    id:
+        departmentId:
+            type: integer
+            nullable: false
+            options:
+                unsigned: false
+                comment: 'Primary key column of departments table.'
+            id: true
+            column: DEPARTMENT_ID
+            generator:
+                strategy: SEQUENCE
+    fields:
+        departmentName:
+            type: string
+            nullable: false
+            length: 30
+            options:
+                fixed: false
+                comment: "A not null column that shows name of a department. Administration,\nMarketing, Purchasing, Human Resources, Shipping, IT, Executive, Public\nRelations, Sales, Finance, and Accounting. "
+            column: DEPARTMENT_NAME
+    manyToOne:
+        location:
+            targetEntity: Example\Lib\Entities\Locations
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                LOCATION_ID:
+                    referencedColumnName: LOCATION_ID
+            orphanRemoval: false
+        manager:
+            targetEntity: Example\Lib\Entities\Employees
+            cascade: {  }
+            fetch: LAZY
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                MANAGER_ID:
+                    referencedColumnName: EMPLOYEE_ID
+            orphanRemoval: false
+    lifecycleCallbacks: {  }
