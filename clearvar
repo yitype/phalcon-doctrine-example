@@ -1,3 +1,3 @@
 #!/usr/bin/env bash
 
-find var -type f -not -name '.gitignore' -delete
+find `dirname $0`/var -type f -not -name '.gitignore' -delete
