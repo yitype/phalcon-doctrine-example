@@ -4,6 +4,11 @@ Phalcon Doctrine Integration
 
 Skeleton application for phalcon integrated with doctrine.
 
+Requirements
+
+- [apcu-bc](https://github.com/krakjoe/apcu-bc) 
+- [apcu](https://github.com/krakjoe/apcu)
+
 Dependencies
 
 - [https://github.com/OpsKitchen/ok_php_base](https://github.com/OpsKitchen/ok_php_base)

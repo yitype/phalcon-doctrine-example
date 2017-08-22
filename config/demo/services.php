@@ -4,7 +4,6 @@
  * made better by you.
  */
 
-use Doctrine\Common\Cache\FilesystemCache;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Tools\Setup;
 use OK\PhalconEnhance\Constant\BuiltinServiceName;
@@ -46,14 +45,11 @@ return [
     [
         'em_demo',
         function () {
-            $isDevMode = false;
-            $paths     = include __DIR__ . '/db_meta_data.php';
-            $conn      = include __DIR__ . '/db.php';
-
-            $cache = new FilesystemCache(__DIR__ . '/../../var/cache/doctrine');
+            $paths = include __DIR__ . '/db_meta_data.php';
+            $conn  = include __DIR__ . '/db.php';
 
             // Create a Doctrine ORM configuration for YAML
-            $config = Setup::createYAMLMetadataConfiguration($paths, $isDevMode, null, $cache);
+            $config = Setup::createYAMLMetadataConfiguration($paths, false);
 
             // obtaining the entity manager
             return EntityManager::create($conn, $config);
